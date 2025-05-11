@@ -15,7 +15,7 @@ export class EmployeeModel
         this.city='';
         this.contactNo='';
         this.emailId='';
-        this.empId=0;
+        this.empId=1;
         this.name='';
         this.state='';
         this.pincode='';

@@ -10,19 +10,33 @@
            <table class="table table-bordered">
         <thead>
           <tr>
-            <th>Sr No</th>
+            <th>Serial No</th>
             <th>Name</th>
             <th>Contact No</th>
             <th>Email-Id</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          
+          @for(item of employeeList; track $index)
+          {
+            <tr>
+              <td>{{$index+1}}</td>
+              <td>{{item.name}}</td>
+              <td>{{item.contactNo}}</td>
+              <td>{{item.emailId}}</td>
+             <td class="text-center">
+                <button class="btn btn-primary" (click)="onEdit(item)">Edit</button>
+                <button class="btn btn-danger mx-2" (click)="onDelete(item.empId)"> Delete </button>
+             </td>
+       
+            </tr>
+          }
+
+
         </tbody>
       </table>
-        </div>
-
-    
+        </div>  
       </div>
     </div>
   </div>
@@ -34,11 +48,20 @@
     </div>
     <div class="card-body">
       <form [formGroup] = "employeeForm">
-  <div class="row">
+        <div class="row">
         <div class="col-6">
           <label for="">Name</label>
           <input type="text" formControlName="name" class="form-control">
-
+          <!-- <div class="text-danger">
+            @if(employeeForm.controls['name'].touched)
+            {
+              @if(employeeForm.controls['name'].error?.['required'])
+              {
+                <span> NAME IS REQUIRED </span>
+          
+              }
+            }
+          </div> -->
         </div>
         <div class="col-6">
           <label for="">Email-Id</label>
@@ -64,7 +87,7 @@
           <label for="">pincode</label>
           <input type="text" formControlName="pincode" class="form-control">
 </div>
-<div class="col-6">
+<div class="col-12">
           <label for="">Address</label>
           <textarea type="text" formControlName="address" class="form-control"> </textarea>
 </div>
@@ -74,7 +97,15 @@
     <button class="btn btn-secondary">Reset</button>
   </div>
    <div class="col-6 text-center">
-    <button class="btn btn-success" (click)="onSave()">Save </button>
+    @if(employeeForm.controls['empId'].value == '1')
+    {
+      <button class="btn btn-success" (click)="onSave()"> Save </button>
+    }
+   @else
+   {
+      <button class="btn btn-warning" (click)="onUpdate()"> Update </button>
+   }
+    
   </div>
 </div>
 
